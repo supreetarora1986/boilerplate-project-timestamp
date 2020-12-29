@@ -4,18 +4,26 @@ var app = express();
 console.log("Hello world");
 
 var getTimestamp = function(date){
-
-    let momentDateFormatted = moment.utc(date,"YYYY-MM-DD");
-    if(!momentDateFormatted.isValid()){
-        momentDateFormatted = moment(parseInt(date));
+    if(date !== ''){
+        let momentDateFormatted = moment.utc(date,"YYYY-MM-DD");
+        if(!momentDateFormatted.isValid()){
+            let unixDate = new Date(parseInt(date));
+            if(isNaN(unixDate.getTime())){
+                return {error: 'Invalid Date'}
+            }else{
+            momentDateFormatted = moment(unixDate.getTime());
+            }
+        }
+        return setTimestampObj(momentDateFormatted);
+    }else{
+        return setTimestampObj("");
     }
-    return setTimestampObj(momentDateFormatted);
 }
 
 var setTimestampObj = function(momentDateFormatted){
     let timestamp = {
-    unix : parseInt(momentDateFormatted.format('x')),
-    utc :  momentDateFormatted.utc().format("ddd, DD MMM YYYY HH:mm:ss \\G\\M\\T")
+    unix : momentDateFormatted != "" ? parseInt(momentDateFormatted.format('x')) : moment.now().format('x'),
+    utc :  momentDateFormatted != "" ? momentDateFormatted.utc().format("ddd, DD MMM YYYY HH:mm:ss \\G\\M\\T") : moment.now().utc().format("ddd, DD MMM YYYY HH:mm:ss \\G\\M\\T")
     };
     return timestamp;
 }
