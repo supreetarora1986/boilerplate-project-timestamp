@@ -24,11 +24,13 @@ app.get("/", function (req, res) {
 app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
-app.get("/api/timestamp/", function (req, res) {
-  res.send(myApp.getTimestamp());
-});
+
 app.get("/api/timestamp/:date", function (req, res) {
   res.send(myApp.getTimestamp(req.params.date));
+});
+
+app.get("/api/timestamp/", function (req, res) {
+  res.send(myApp.getTimestamp());
 });
 
 
