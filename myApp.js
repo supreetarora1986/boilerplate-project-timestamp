@@ -14,7 +14,7 @@ var getTimestamp = function(date){
 
 var setTimestampObj = function(momentDateFormatted){
     let timestamp = {
-    unix : momentDateFormatted.unix(),
+    unix : momentDateFormatted.format('x'),
     utc :  momentDateFormatted.utc().format("ddd, DD MMM YYYY HH:mm:ss \\G\\M\\T")
     };
     return timestamp;
