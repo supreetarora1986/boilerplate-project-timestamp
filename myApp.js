@@ -5,7 +5,7 @@ console.log("Hello world");
 
 var getTimestamp = function(date){
 
-    let momentDateFormatted = moment(date,"YYYY-MM-DD");
+    let momentDateFormatted = moment.utc(date,"YYYY-MM-DD");
     if(!momentDateFormatted.isValid()){
         momentDateFormatted = moment(parseInt(date));
     }
